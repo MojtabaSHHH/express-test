@@ -9,18 +9,24 @@ import {
   removeTextFromGroupsController,
   updateGroupsController,
 } from "./group.controller";
+import validator from "../utils/validator";
+import { create, textInGroup, update } from "./group.validate";
 
 const router = express.Router();
 
-router.post("/", createGroupsController);
+router.post("/", validator(create), createGroupsController);
 
 router.get("/", getAllGroupsController);
 
-router.post("/text", addTextToGroupsController);
+router.post("/text", validator(textInGroup), addTextToGroupsController);
 
-router.put("/deleteTexts", removeTextFromGroupsController);
+router.put(
+  "/deleteTexts",
+  validator(textInGroup),
+  removeTextFromGroupsController
+);
 
-router.put("/:id", updateGroupsController);
+router.put("/:id", validator(update), updateGroupsController);
 
 router.delete("/:id", deleteGroupsController);
 

@@ -6,14 +6,16 @@ import {
   textGetOneById,
   textUpdated,
 } from "./text.controller";
+import validator from "../utils/validator";
+import { create, update } from "./text.validate";
 
 const router = express.Router();
 
-router.post("/", textCreated);
+router.post("/", validator(create),textCreated);
 
 router.get("/", textGetAll);
 
-router.put("/:id", textUpdated);
+router.put("/:id",validator(update), textUpdated);
 
 router.delete("/:id", textDeleted);
 
